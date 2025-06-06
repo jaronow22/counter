@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>School Request Counter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 2rem;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 0.2rem;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 600px;
+      margin: 0 auto 10px auto;
+      padding: 0 20px;
+      font-weight: bold;
+      color: #555;
+    }
+    .header-rank {
+      width: 60px;
+    }
+    .header-name {
+      flex: 1;
+    }
+    .header-votes {
+      width: 60px;
+      text-align: right;
+    }
+    .school {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      padding: 12px 20px;
+      margin: 10px auto;
+      max-width: 600px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      font-size: 1.1rem;
+    }
+    .rank {
+      font-weight: bold;
+      margin-right: 10px;
+      width: 60px;
+    }
+    .school-name {
+      flex: 1;
+    }
+    .tally {
+      font-size: 0.9rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: black;
+      color: white;
+      width: 60px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>School Request Counter</h1>
+  <div class="subtitle">
+    Once the Big Ten is complete, the school with the most requests will be next.
+    Drop a comment to submit a vote <span style="font-style: italic;">(tallies update daily)</span>.
+  </div>
+
+  <div class="header-row">
+    <div class="header-rank"># Rank</div>
+    <div class="header-name">School</div>
+    <div class="header-votes">Votes</div>
+  </div>
+
+  <div id="school-list"></div>
+
+  <script>
+    const schools = [
+      ["University of Washington", 4],
+      ["Michigan State", 4],
+      ["Texas A&M", 4],
+      ["UT Austin", 3],
+      ["Wisco", 3],
+      ["Notre Dame", 3],
+      ["Syracuse", 3],
+      ["West Virginia", 3],
+      ["Arizona State", 2],
+      ["Mizzou", 2],
+      ["Wisconsin", 2],
+      ["Florida", 2],
+      ["Boise State", 2],
+      ["Auburn", 2],
+      ["Georgetown", 2],
+      ["Purdue", 2],
+      ["Maryland", 2],
+      ["UCLA", 2],
+      ["Gardener Web", 0],
+      ["Boston College", 0],
+      ["Drexel", 0],
+      ["Utah", 0],
+      ["New Haven", 0],
+      ["Oklahoma", 0],
+      ["WeArkansas", 0],
+      ["BYU", 0],
+      ["Texas State", 0],
+      ["Swarthmore", 0],
+      ["Kentucky", 0],
+      ["Cornell", 0],
+      ["Rutgers", 0],
+      ["Northwestern", 0],
+      ["GCU", 0],
+      ["Yale", 0],
+      ["Oxford", 0],
+      ["DePaul", 0],
+      ["BGSU", 0],
+      ["Ursinus College", 0],
+      ["Wartburg College", 0],
+      ["UPenn", 0],
+      ["Grand Valley State", 0],
+      ["Clemson", 0],
+      ["North Dakota State", 0],
+      ["UNCSA", 0],
+      ["Pitt", 0],
+      ["Nebraska", 0],
+      ["Iowa", 0],
+      ["Western Michigan", 0],
+      ["Alabama", 0],
+      ["Houston", 0],
+      ["Williams College", 0],
+      ["Central Michigan", 0],
+      ["MAHE", 0],
+      ["Illinois", 0],
+      ["Penn State", 0],
+      ["Lakeland University", 0]
+    ];
+
+    const container = document.getElementById("school-list");
+
+    schools.sort((a, b) => b[1] - a[1]);
+
+    schools.forEach(([name, count], index) => {
+      const div = document.createElement("div");
+      div.className = "school";
+
+      const rank = index + 1;
+      const maxRank = schools.length;
+      const ratio = rank / maxRank;
+      const color = `hsl(${(120 - ratio * 120)}, 70%, 80%)`;
+
+      div.style.borderLeft = `10px solid ${color}`;
+
+      div.innerHTML = `
+        <span class="rank">#${rank}</span>
+        <span class="school-name">${name}</span>
+        <span class="tally">${count}</span>
+      `;
+
+      container.appendChild(div);
+    });
+  </script>
+</body>
+</html>
