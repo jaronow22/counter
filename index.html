@@ -1,118 +1,211 @@
-<script>
-  const schools = [
-    ["University Of Washington", 5],
-    ["Michigan State", 4],
-    ["Texas A&M", 4],
-    ["Notre Dame", 4],
-    ["Syracuse", 4],
-    ["Mizzou", 4],
-    ["Wisconsin", 4],
-    ["Boise State", 4],
-    ["Purdue", 4],
-    ["Ut Austin", 3],
-    ["Wisco", 3],
-    ["Georgia Tech", 3],
-    ["West Virginia", 3],
-    ["Pitt", 3],
-    ["Maryland", 3],
-    ["Auburn", 3],
-    ["Iowa", 3],
-    ["Northwestern", 3],
-    ["Illinois", 3],
-    ["Msu", 3],
-    ["Florida", 2],
-    ["Georgetown", 2],
-    ["Ucla", 2],
-    ["Arizona State", 2],
-    ["Alabama", 2],
-    ["Clemson", 2],
-    ["Kentucky", 2],
-    ["Nebraska", 2],
-    ["Depaul", 2],
-    ["Yale", 2],
-    ["Western Michigan", 2],
-    ["Uconn", 2],
-    ["Iowa State", 2],
-    ["Oklahoma", 1],
-    ["Smu", 1],
-    ["Miami", 1],
-    ["Houston", 1],
-    ["Texas State", 1],
-    ["Uncsa", 1],
-    ["Penn State", 1],
-    ["Central Michigan", 1],
-    ["Scad", 1],
-    ["Ohio University", 1],
-    ["Cal", 1],
-    ["Ursinus College", 1],
-    ["Wartburg College", 1],
-    ["Upenn", 1],
-    ["North Dakota State", 1],
-    ["Williams College", 1],
-    ["New Haven", 1],
-    ["Bowdoin", 1],
-    ["South Carolina", 1],
-    ["Oxford", 1],
-    ["Gcu", 1],
-    ["Rutgers", 1],
-    ["Drexel", 1],
-    ["Swarthmore", 1],
-    ["Cornell", 1],
-    ["Byu", 1],
-    ["Boston College", 1],
-    ["Grand Valley State", 1],
-    ["Unsa", 1],
-    ["Minnesota", 1],
-    ["University Of Maine", 1],
-    ["Stetson University", 1],
-    ["Boston University", 1],
-    ["Northeastern", 1],
-    ["Wheaton College", 1],
-    ["Alfred University", 1],
-    ["San Diego State", 1],
-    ["Arizona", 1],
-    ["Carleton College", 1],
-    ["Bgsu", 1],
-    ["Lakeland University", 1],
-    ["Arkansas", 1],
-    ["Gardener Web", 1],
-    ["Utah", 1],
-    ["Oklahoma State", 1],
-    ["Mahé", 1]
-  ];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>School Request Counter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 2rem;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 0.2rem;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 600px;
+      margin: 0 auto 10px auto;
+      padding: 0 20px;
+      font-weight: bold;
+      color: #555;
+    }
+    .header-rank {
+      width: 60px;
+    }
+    .header-name {
+      flex: 1;
+    }
+    .header-votes {
+      width: 60px;
+      text-align: right;
+    }
+    .school {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      padding: 12px 20px;
+      margin: 10px auto;
+      max-width: 600px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      font-size: 1.1rem;
+    }
+    .rank {
+      font-weight: bold;
+      margin-right: 10px;
+      width: 60px;
+    }
+    .school-name {
+      flex: 1;
+    }
+    .tally {
+      font-size: 0.9rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: black;
+      color: white;
+      width: 60px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>School Request Counter</h1>
+  <div class="subtitle">
+    Once the Big Ten is complete, the school with the most requests will be next.
+    Drop a comment to submit a vote <span style="font-style: italic;">(tallies update daily)</span>.
+  </div>
 
-  const container = document.getElementById("school-list");
+  <div class="header-row">
+    <div class="header-rank"># Rank</div>
+    <div class="header-name">School</div>
+    <div class="header-votes">Votes</div>
+  </div>
 
-  schools.sort((a, b) => b[1] - a[1]);
+  <div id="school-list"></div>
 
-  schools.forEach(([name, count], index) => {
-    const div = document.createElement("div");
-    div.className = "school";
+  <script>
+    const schools = [
+      ["University Of Washington", 5],
+      ["Michigan State", 4],
+      ["Texas A&M", 4],
+      ["Notre Dame", 4],
+      ["Syracuse", 4],
+      ["Mizzou", 4],
+      ["Wisconsin", 4],
+      ["Boise State", 4],
+      ["Purdue", 4],
+      ["Ut Austin", 3],
+      ["Wisco", 3],
+      ["Georgia Tech", 3],
+      ["West Virginia", 3],
+      ["Pitt", 3],
+      ["Maryland", 3],
+      ["Auburn", 3],
+      ["Iowa", 3],
+      ["Northwestern", 3],
+      ["Illinois", 3],
+      ["Msu", 3],
+      ["Florida", 2],
+      ["Georgetown", 2],
+      ["Ucla", 2],
+      ["Arizona State", 2],
+      ["Alabama", 2],
+      ["Clemson", 2],
+      ["Kentucky", 2],
+      ["Nebraska", 2],
+      ["Depaul", 2],
+      ["Yale", 2],
+      ["Western Michigan", 2],
+      ["Uconn", 2],
+      ["Iowa State", 2],
+      ["Oklahoma", 1],
+      ["Smu", 1],
+      ["Miami", 1],
+      ["Houston", 1],
+      ["Texas State", 1],
+      ["Uncsa", 1],
+      ["Penn State", 1],
+      ["Central Michigan", 1],
+      ["Scad", 1],
+      ["Ohio University", 1],
+      ["Cal", 1],
+      ["Ursinus College", 1],
+      ["Wartburg College", 1],
+      ["Upenn", 1],
+      ["North Dakota State", 1],
+      ["Williams College", 1],
+      ["New Haven", 1],
+      ["Bowdoin", 1],
+      ["South Carolina", 1],
+      ["Oxford", 1],
+      ["Gcu", 1],
+      ["Rutgers", 1],
+      ["Drexel", 1],
+      ["Swarthmore", 1],
+      ["Cornell", 1],
+      ["Byu", 1],
+      ["Boston College", 1],
+      ["Grand Valley State", 1],
+      ["Unsa", 1],
+      ["Minnesota", 1],
+      ["University Of Maine", 1],
+      ["Stetson University", 1],
+      ["Boston University", 1],
+      ["Northeastern", 1],
+      ["Wheaton College", 1],
+      ["Alfred University", 1],
+      ["San Diego State", 1],
+      ["Arizona", 1],
+      ["Carleton College", 1],
+      ["Bgsu", 1],
+      ["Lakeland University", 1],
+      ["Arkansas", 1],
+      ["Gardener Web", 1],
+      ["Utah", 1],
+      ["Oklahoma State", 1],
+      ["Mahé", 1]
+    ];
 
-    const rank = index + 1;
-    const maxRank = schools.length;
-    const ratio = rank / maxRank;
-    const color = `hsl(${(120 - ratio * 120)}, 70%, 80%)`;
+    const container = document.getElementById("school-list");
 
-    div.style.borderLeft = `10px solid ${color}`;
+    schools.sort((a, b) => b[1] - a[1]);
 
-    div.innerHTML = `
-      <span class="rank">#${rank}</span>
-      <span class="school-name">${name}</span>
-      <span class="tally">${count}</span>
+    schools.forEach(([name, count], index) => {
+      const div = document.createElement("div");
+      div.className = "school";
+
+      const rank = index + 1;
+      const maxRank = schools.length;
+      const ratio = rank / maxRank;
+      const color = `hsl(${(120 - ratio * 120)}, 70%, 80%)`;
+
+      div.style.borderLeft = `10px solid ${color}`;
+
+      div.innerHTML = `
+        <span class="rank">#${rank}</span>
+        <span class="school-name">${name}</span>
+        <span class="tally">${count}</span>
+      `;
+
+      container.appendChild(div);
+    });
+
+    // Add total row
+    const totalRow = document.createElement("div");
+    totalRow.className = "school";
+    totalRow.style.background = "#f0f0f0";
+    totalRow.innerHTML = `
+      <span class="rank"></span>
+      <span class="school-name" style="font-weight: bold;">Total Requests</span>
+      <span class="tally" style="background: #333;">142</span>
     `;
-
-    container.appendChild(div);
-  });
-
-  // Add total at bottom
-  const totalRow = document.createElement("div");
-  totalRow.className = "school";
-  totalRow.style.background = "#f0f0f0";
-  totalRow.innerHTML = `
-    <span class="rank"></span>
-    <span class="school-name" style="font-weight: bold;">Total Requests</span>
-    <span class="tally" style="background: #333;">142</span>
-  `;
-  container.appendChild(totalRow);
-</script>
+    container.appendChild(totalRow);
+  </script>
+</body>
+</html>
